@@ -1,0 +1,18 @@
+# Full email address
+john.smith@example.com
+
+# Domain
+example.org
+
+# Domain with an '@'
+@some.dummy.domain.test
+@another.domain.only.exists.in.local.network.test
+
+# Some more email addresses
+who.am.i@example.net
+
+####
+# I don't care about blank lines and comments starting with a '#'.
+####
+
+
