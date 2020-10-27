@@ -40,7 +40,7 @@ function mail_filter_info()
 		'author'        => 'Yu \'noyle\' Liu',
 		'authorsite'    => 'https://github.com/yuliu/mybb-plugin-mail-filter',
 		'version'       => '0.1',
-		'compatibility' => '1.8.25+',
+		'compatibility' => '18*, 1825, 1826, 1827, 1828, 1829, 183*, 184*, 185*',
 		'codename'      => 'noyle_mail_filter',
 	);
 }
