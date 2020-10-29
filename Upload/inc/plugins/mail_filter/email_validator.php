@@ -90,34 +90,42 @@ class EmailValidator
 
 	public function is_valid($email, $selected_validators = self::VALIDATOR_RFC_PHP | self::VALIDATOR_BLOCKLIST)
 	{
-		// If the email address is a valid one.
-		$is_valid = false;
+		// At first the address is supposedly valid and if no validator is performing validation and no validator mark it as invalid, it should remain a valid one. Doing so won't force the plugin to do something aggressively.
+		$is_valid = true;
 
-		// If the address is in our blocklist.
+		// The mail address is not blocked before we've done any check on it.
 		$is_blocked = false;
 
-		if(($selected_validators & self::VALIDATOR_RFC_PHP) && filter_var($email, FILTER_VALIDATE_EMAIL))
+		// If we've selected the validator that uses PHP's email validation filter and the filter returns false, we mark this email address as invalid.
+		if(($selected_validators & self::VALIDATOR_RFC_PHP) && filter_var($email, FILTER_VALIDATE_EMAIL) === false)
 		{
-			$is_valid = true;
+			$is_valid = false;
 		}
 
+		// If it's invalid already, we won't check it further.
 		if($is_valid && ($selected_validators & self::VALIDATOR_BLOCKLIST))
 		{
-			// Check the domain part.
-			$email_domain = substr($email, strpos($email,'@') + 1);
-			if(in_array($email_domain, $this->blocklist['domains']))
-			{
-				$is_blocked = true;
-			}
+			// The variable indicating the address's validity being true doesn't necessarily mean the address is valid. We just need to do one more step before really checking if it's in our blocklist and it's to figure out if the address has an '@'.
+			$pos_at =  strpos($email,'@');
 
-			// Check the whole part.
-			if(!$is_blocked && in_array($email, $this->blocklist['emails']))
+			if($pos_at !== false)
 			{
-				$is_blocked = true;
+				// Check the domain part.
+				$email_domain = substr($email, $pos_at + 1);
+				if(!empty($email_domain) && in_array($email_domain, $this->blocklist['domains']))
+				{
+					$is_blocked = true;
+				}
+
+				// Check the whole part.
+				if(!$is_blocked && in_array($email, $this->blocklist['emails']))
+				{
+					$is_blocked = true;
+				}
 			}
 		}
 
-		// It's a valid email and isn't blocked.
+		// It's a valid email address and isn't blocked by us.
 		if($is_valid && !$is_blocked)
 		{
 			return true;
