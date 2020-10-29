@@ -60,6 +60,7 @@ class EmailValidator
 		{
 			foreach($entries as $entry)
 			{
+				$entry = trim($entry);
 				if(!empty($entry))
 				{
 					// Comment line.
