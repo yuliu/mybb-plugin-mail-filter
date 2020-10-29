@@ -90,7 +90,7 @@ class EmailValidator
 
 	public function is_valid($email, $selected_validators = self::VALIDATOR_RFC_PHP | self::VALIDATOR_BLOCKLIST)
 	{
-		// At first the address is supposedly valid and if no validator is performing validation and no validator mark it as invalid, it should remain a valid one. Doing so won't force the plugin to do something aggressively.
+		// At first the address is supposedly valid and if no validator is performing validation and no validators mark it as invalid, it should remain valid. Doing so won't force the plugin to do something aggressively.
 		$is_valid = true;
 
 		// The mail address is not blocked before we've done any check on it.

@@ -31,6 +31,7 @@ Currently, the plugin doesn't provide any hook.
 
 ## TODO
 
+- Language packs.
 - Integrate [egulias's EmailValidator](https://github.com/egulias/EmailValidator).
 - Hook to MyBB user registration so that it may detect some spoofed email addresses.
 - The ability of detecting if any mailing is failed.
