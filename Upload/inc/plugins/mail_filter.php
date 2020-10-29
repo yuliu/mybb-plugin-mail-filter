@@ -46,24 +46,22 @@ function mail_filter_info()
 }
 
 /**
+ * Manually add some MyBB settings, temporarily.
+ */
+global $mybb;
+if(isset($mybb->settings))
+{
+	$mybb->settings['noyle_mail_filter_logging'] = PLUGIN_MAIL_FILTER_LOGGING;
+	$mybb->settings['noyle_mail_filter_validation_methods'] = PLUGIN_MAIL_FILTER_VALIDATIONS;
+	$mybb->settings['noyle_mail_filter_force_mail_from'] = PLUGIN_MAIL_FILTER_FORCE_MAIL_FROM;
+	$mybb->settings['noyle_mail_filter_force_mail_from_email'] = PLUGIN_MAIL_FILTER_FORCE_MAIL_FROM_EMAIL;
+	$mybb->settings['noyle_mail_filter_reroute_all_mail_to'] = PLUGIN_MAIL_FILTER_REROUTE_ALL_MAIL_TO;
+	$mybb->settings['noyle_mail_filter_reroute_all_mail_to_email'] = PLUGIN_MAIL_FILTER_REROUTE_ALL_MAIL_TO_EMAIL;
+}
+
+/**
  * Hooks to MyBB.
  */
-
-// It's a temporary hook.
-$plugins->add_hook('global_end', 'mail_filter_hook_to_global_end');
-function mail_filter_hook_to_global_end()
-{
-	global $mybb;
-	if(isset($mybb->settings))
-	{
-		$mybb->settings['noyle_mail_filter_logging'] = PLUGIN_MAIL_FILTER_LOGGING;
-		$mybb->settings['noyle_mail_filter_validation_methods'] = PLUGIN_MAIL_FILTER_VALIDATIONS;
-		$mybb->settings['noyle_mail_filter_force_mail_from'] = PLUGIN_MAIL_FILTER_FORCE_MAIL_FROM;
-		$mybb->settings['noyle_mail_filter_force_mail_from_email'] = PLUGIN_MAIL_FILTER_FORCE_MAIL_FROM_EMAIL;
-		$mybb->settings['noyle_mail_filter_reroute_all_mail_to'] = PLUGIN_MAIL_FILTER_REROUTE_ALL_MAIL_TO;
-		$mybb->settings['noyle_mail_filter_reroute_all_mail_to_email'] = PLUGIN_MAIL_FILTER_REROUTE_ALL_MAIL_TO_EMAIL;
-	}
-}
 
 // Hook to the mail parameter part so that we could re-assign some parameter such as the from/to email addresses, etc.
 $plugins->add_hook('my_mail_parameters', 'mail_filter_hook_to_my_mail_parameters');
