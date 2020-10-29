@@ -31,7 +31,7 @@ Currently, the plugin doesn't provide any hook.
 
 ## TODO
 
-- Integrate [egulias's EmailValidator](https://github.com/egulias/EmailValidato).
+- Integrate [egulias's EmailValidator](https://github.com/egulias/EmailValidator).
 - Hook to MyBB user registration so that it may detect some spoofed email addresses.
 - The ability of detecting if any mailing is failed.
 - Hooks or options would be added so that when a mail is blocked from being sent from MyBB, a PM notification will be sent to admins and/or the mail's sending user, with the cause of being blocked.
