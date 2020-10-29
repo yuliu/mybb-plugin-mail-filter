@@ -39,7 +39,7 @@ function mail_filter_info()
 		'website'       => 'https://github.com/yuliu/mybb-plugin-mail-filter',
 		'author'        => 'Yu \'noyle\' Liu',
 		'authorsite'    => 'https://github.com/yuliu/mybb-plugin-mail-filter',
-		'version'       => '0.1',
+		'version'       => '0.1.1',
 		'compatibility' => '18*, 1825, 1826, 1827, 1828, 1829, 183*, 184*, 185*',
 		'codename'      => 'noyle_mail_filter',
 	);
