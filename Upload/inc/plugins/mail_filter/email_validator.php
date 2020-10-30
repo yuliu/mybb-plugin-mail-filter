@@ -10,22 +10,22 @@ namespace Noyle\MyBBPlugin\MailFilter;
 
 class EmailValidator
 {
-	public const VALIDATOR_RFC_PHP = 1;
+	const VALIDATOR_RFC_PHP = 1;
 
-	public const VALIDATOR_RFC = 2;
+	const VALIDATOR_RFC = 2;
 
 	// All warnings will be regarded as errors in _NORFCWARNING mode.
-	public const VALIDATOR_NORFCWARNING = 4;
+	const VALIDATOR_NORFCWARNING = 4;
 
-	public const VALIDATOR_DNSCHECK = 8;
+	const VALIDATOR_DNSCHECK = 8;
 
-	public const VALIDATOR_SPOOFCHECK = 16;
+	const VALIDATOR_SPOOFCHECK = 16;
 
-	public const VALIDATOR_BLOCKLIST = 32;
+	const VALIDATOR_BLOCKLIST = 32;
 
-	public const VALIDATOR_ALL = self::VALIDATOR_RFC + self::VALIDATOR_DNSCHECK + self::VALIDATOR_SPOOFCHECK;
+	const VALIDATOR_ALL = self::VALIDATOR_RFC + self::VALIDATOR_DNSCHECK + self::VALIDATOR_SPOOFCHECK;
 
-	public const VALIDATOR_ALL_NORFCWARNING = self::VALIDATOR_NORFCWARNING + self::VALIDATOR_DNSCHECK + self::VALIDATOR_SPOOFCHECK;
+	const VALIDATOR_ALL_NORFCWARNING = self::VALIDATOR_NORFCWARNING + self::VALIDATOR_DNSCHECK + self::VALIDATOR_SPOOFCHECK;
 
 	private $blocklist = array(
 		'domains' => array(),
