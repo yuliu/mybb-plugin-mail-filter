@@ -7,7 +7,7 @@ It's a plugin with magic if you don't know what it does.
 ## Requirements
 
 - MyBB >= 1.8.25 _(?)_ or 1.8.x with [this `my_mail()` extension to MyBB](https://github.com/yuliu/mybb-mybb/tree/pull-4135-mailhandler-hook)
-- PHP >= 5.6 _(?)_
+- PHP >= 5.6
 
 ## Version & upgrade notice
 
