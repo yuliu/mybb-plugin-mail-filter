@@ -6,7 +6,7 @@
  * Copyright Yu 'noyle' Liu, All Rights Reserved
  */
 
-namespace Noyle\MyBBPlugin\MailFilter;
+namespace Noyle\MyBBPlugin\MailFilter\EmailValidator;
 
 class EmailValidator
 {
@@ -124,6 +124,8 @@ class EmailValidator
 				}
 			}
 		}
+
+		// TODO: egulias's EmailValidator(https://github.com/egulias/EmailValidator).
 
 		// It's a valid email address and isn't blocked by us.
 		if($is_valid && !$is_blocked)
