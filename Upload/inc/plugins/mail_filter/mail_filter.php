@@ -44,6 +44,16 @@ function mail_filter_hook_to_my_mail_parameters($my_mail_parameters)
  */
 function mail_filter_hook_to_my_mail_send($my_mail_parameters)
 {
+	// If the mail has already been sent.
+	$is_mail_sent = (bool)$my_mail_parameters['is_mail_sent'];
+	// Do we want to continue process?
+	$continue_process = (bool)$my_mail_parameters['continue_process'];
+
+	if($is_mail_sent || !$continue_process)
+	{
+		return $my_mail_parameters;
+	}
+
 	global $mybb;
 	static $email_validator;
 
@@ -89,11 +99,11 @@ function mail_filter_hook_to_my_mail_send($my_mail_parameters)
 			$db->insert_query("maillogs", $log_entry);
 		}
 
-		// Actually we should return false. Here we return true due to MyBB hook's restriction.
-		return true;
+		// We didn't send the mail.
+		$my_mail_parameters['is_mail_sent'] = false;
+		// And we don't suggest to continue process the mail.
+		$my_mail_parameters['continue_process'] = false;
 	}
 
-	// Return nothing so that MyBB will send the mail.
-	// Or should we return $my_mail_parameters for other plugins to work on it?
-	//return $my_mail_parameters;
+	return $my_mail_parameters;
 }
