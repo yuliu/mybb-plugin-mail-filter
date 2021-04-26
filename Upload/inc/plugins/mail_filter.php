@@ -64,7 +64,7 @@ if(isset($mybb->settings))
  */
 
 // Hook to the mail parameter part so that we could re-assign some parameter such as the from/to email addresses, etc.
-$plugins->add_hook('my_mail_parameters', '\Noyle\MyBBPlugin\MailFilter\mail_filter_hook_to_my_mail_parameters');
+$plugins->add_hook('my_mail_pre_build_message', '\Noyle\MyBBPlugin\MailFilter\mail_filter_hook_to_my_mail_pre_build_message');
 
 // Hook to the mail send part so that we may rule some mails out. We hope to make this plugin light weight so we won't bother building a mail handler ourselves.
-$plugins->add_hook('my_mail_send', '\Noyle\MyBBPlugin\MailFilter\mail_filter_hook_to_my_mail_send');
+$plugins->add_hook('my_mail_pre_send', '\Noyle\MyBBPlugin\MailFilter\mail_filter_hook_to_my_mail_pre_send');

@@ -18,7 +18,7 @@ require_once PLUGIN_MAIL_FILTER_FOLDER . '/email_validator.php';
  *
  * @return array The input array that may or may not have been modified by the function.
  */
-function mail_filter_hook_to_my_mail_parameters($my_mail_parameters)
+function mail_filter_hook_to_my_mail_pre_build_message($my_mail_parameters)
 {
 	global $mybb;
 
@@ -42,7 +42,7 @@ function mail_filter_hook_to_my_mail_parameters($my_mail_parameters)
  *
  * @return array The input array that may or may not have been modified by the function.
  */
-function mail_filter_hook_to_my_mail_send($my_mail_parameters)
+function mail_filter_hook_to_my_mail_pre_send($my_mail_parameters)
 {
 	// If the mail has already been sent.
 	$is_mail_sent = (bool)$my_mail_parameters['is_mail_sent'];
