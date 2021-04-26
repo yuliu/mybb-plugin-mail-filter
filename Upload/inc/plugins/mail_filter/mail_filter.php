@@ -38,9 +38,9 @@ function mail_filter_hook_to_my_mail_parameters($my_mail_parameters)
 /**
  * Hooks to 'my_mail_send' so that this function will tell MyBB to send the mail or not.
  *
- * @param $my_mail_parameters array The parameter is an associative array containing variables $to, $subject, $message, $from, $charset, $headers, $keep_alive, $format, $message_text$ and $return_email that are parameters of function my_mail().
+ * @param $my_mail_parameters array The parameter is an associative array containing compacted variables $to, $subject, $message, $from, $charset, $headers, $keep_alive, $format, $message_text, $return_email that are parameters of the function my_mail(), and $is_mail_sent, $continue_process that are used for hook processing.
  *
- * @return mixed True if the mail send via my_mail() is filtered so that MyBB won't send it, otherwise anything else.
+ * @return array Function parameter $my_mail_parameters.
  */
 function mail_filter_hook_to_my_mail_send($my_mail_parameters)
 {
