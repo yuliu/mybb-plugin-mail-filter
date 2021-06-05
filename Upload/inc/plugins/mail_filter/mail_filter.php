@@ -14,11 +14,11 @@ require_once PLUGIN_MAIL_FILTER_FOLDER . '/email_validator.php';
 /**
  * Alter parameters of the function my_mail().
  *
- * @param $my_mail_parameters array The parameter is an associative array containing variables $to, $subject, $message, $from, $charset, $headers, $keep_alive, $format, $message_text$ and $return_email that are parameters of function my_mail().
+ * @param $my_mail_parameters array The parameter is an associative array containing compacted variables $to, $subject, $message, $from, $charset, $headers, $keep_alive, $format, $message_text, $return_email that are parameters of the function my_mail(), and $is_mail_sent, $continue_process that are used for hook processing.
  *
  * @return array The input array that may or may not have been modified by the function.
  */
-function mail_filter_hook_to_my_mail_parameters($my_mail_parameters)
+function mail_filter_hook_to_my_mail_pre_build_message($my_mail_parameters)
 {
 	global $mybb;
 
@@ -38,12 +38,22 @@ function mail_filter_hook_to_my_mail_parameters($my_mail_parameters)
 /**
  * Hooks to 'my_mail_send' so that this function will tell MyBB to send the mail or not.
  *
- * @param $my_mail_parameters array The parameter is an associative array containing variables $to, $subject, $message, $from, $charset, $headers, $keep_alive, $format, $message_text$ and $return_email that are parameters of function my_mail().
+ * @param $my_mail_parameters array The parameter is an associative array containing compacted variables $to, $subject, $message, $from, $charset, $headers, $keep_alive, $format, $message_text, $return_email that are parameters of the function my_mail(), and $is_mail_sent, $continue_process that are used for hook processing.
  *
- * @return mixed True if the mail send via my_mail() is filtered so that MyBB won't send it, otherwise anything else.
+ * @return array The input array that may or may not have been modified by the function.
  */
-function mail_filter_hook_to_my_mail_send($my_mail_parameters)
+function mail_filter_hook_to_my_mail_pre_send($my_mail_parameters)
 {
+	// If the mail has already been sent.
+	$is_mail_sent = (bool)$my_mail_parameters['is_mail_sent'];
+	// Do we want to continue process?
+	$continue_process = (bool)$my_mail_parameters['continue_process'];
+
+	if($is_mail_sent || !$continue_process)
+	{
+		return $my_mail_parameters;
+	}
+
 	global $mybb;
 	static $email_validator;
 
@@ -89,11 +99,11 @@ function mail_filter_hook_to_my_mail_send($my_mail_parameters)
 			$db->insert_query("maillogs", $log_entry);
 		}
 
-		// Actually we should return false. Here we return true due to MyBB hook's restriction.
-		return true;
+		// We didn't send the mail.
+		$my_mail_parameters['is_mail_sent'] = false;
+		// And we don't suggest to continue process the mail.
+		$my_mail_parameters['continue_process'] = false;
 	}
 
-	// Return nothing so that MyBB will send the mail.
-	// Or should we return $my_mail_parameters for other plugins to work on it?
-	//return $my_mail_parameters;
+	return $my_mail_parameters;
 }
